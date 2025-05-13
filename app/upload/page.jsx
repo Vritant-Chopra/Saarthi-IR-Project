@@ -15,6 +15,8 @@ import fileIcon from "../assets/images/fileIcon.png";
 import textIcon from "../assets/images/textIcon.png";
 import commentIcon from "../assets/images/commentIcon.png";
 import plants2 from "../assets/images/plants2.png";
+import posepic from "../assets/images/medipic.gif";
+import blurbgphoto from "../assets/images/krishna-arjun.png"
 import Link from "next/link";
 import backIcon from "../assets/images/back-icon.png";
 import darkLogo from "../assets/images/logo-dark.png";
@@ -42,6 +44,7 @@ export default function Upload() {
   // }, [user, router]);
 
   const [name, setName] = useState(user.username);
+  const [query, setQuery] = useState("");
   const [dates, setDates] = useState("");
   const [files, setFiles] = useState([]);
   const [error, setError] = useState(null);
@@ -170,126 +173,65 @@ export default function Upload() {
     }
   };
 
-
   return (
-      <div className="flex flex-row w-full bg bg-fixed relative backdrop-blur-sm min-h-screen">
-        <Logo />
+    <div className="flex flex-col w-full bg bg-fixed relative backdrop-blur-sm min-h-screen">
+      <Logo />
 
-        <div className='std w-full mt-16 backdrop-blur-[1px]'>
-          <motion.div
-              className="w-1/2 min-h-[75%] overflow-y-scroll bg-brokenWhite self-end rounded-t-[2rem] relative std flex-col"
-              {...slideAnimation("up", 0, 2)}
-          >
-            <Image src={plants2} className="absolute left-0 bottom-0 w-1/3" alt="Plants" />
-
-            <Link
-                href="/landing"
-                className="w-10 h-10 bg-darkGreen absolute top-8 left-8 rounded-lg std hover:bg-pine duration-300"
-            >
-              <Image src={backIcon} className="hover:animate-pulse" alt="Back" />
-            </Link>
-
-            <Image src={darkLogo} className="my-4 w-12" alt="Logo" />
-
-
-            {user.username ? (
-                <p className="text-darkGreen font-semibold text-5xl mb-[2%]">
-                  Welcome, {user.username}!
-                </p>
-            ) : (
-                <p className="text-darkGreen font-semibold text-5xl mb-[2%]">
-                  Hi!
-                </p>
-            )}
-
-            <p className="text-darkGreen font-light text-2xl">
-              Upload your Images Here
-            </p>
-
-            <div className="w-3/5 mb-8">
-              <form onSubmit={handleSubmit} className="p-4 py-0">
-
-                {error && <p className="text-red-500">{error}</p>}
-                <PrimaryInput
-                    placeholder="User Name"
-                    color="darkGreen"
-                    type="text"
-                    profileIcon={profileIcon}
-                    value={user.username}
-                    readOnly
-                />
-                <PrimaryInput
-                    placeholder="Date"
-                    color="darkGreen"
-                    type="text"
-                    profileIcon={dateIcon}
-                    value={showDate}
-                    readOnly={true}
-                />
-                <PrimaryInput
-                    placeholder="No Files Chosen"
-                    color="darkGreen"
-                    type="file"
-                    multiple={true}
-                    accept="image/*"
-                    profileIcon={fileIcon}
-                    onChange={handleFileChange}
-                />
-
-                {/* Button to add key-value pair */}
-                <div className="flex flex-row space-x-10 items-center justify-center">
-                  <button
-                      type="button"
-                      className="my-4 bg-darkGreen text-white py-2 px-4 rounded z-20 relative"
-                      onClick={addKeyValuePair}
-                  >
-                    Add
-                  </button>
-                  <button
-                      type="button"
-                      className="my-4 bg-darkGreen text-white py-2 px-4 rounded"
-                      onClick={() => {
-                        if (keyValuePairs.length > 0) {
-                          deleteKeyValuePair(keyValuePairs.length - 1);
-                        }
-                      }}
-                  >
-                    Delete
-                  </button>
-                </div>
-
-                {/* Dynamically added key-value pairs */}
-                {keyValuePairs.map((pair, index) => (
-                    <div key={index} className="flex space-x-4 mb-4">
-                      <PrimaryInput
-                          placeholder="Key"
-                          color="darkGreen"
-                          type="text"
-                          profileIcon={textIcon}
-                          value={pair.key}
-                          onChange={(e) => handleKeyValueChange(index, "key", e.target.value)}
-                      />
-                      <PrimaryInput
-                          placeholder="Value"
-                          color="darkGreen"
-                          type="text"
-                          profileIcon={textIcon}
-                          value={pair.value}
-                          onChange={(e) => handleKeyValueChange(index, "value", e.target.value)}
-                      />
-                    </div>
-                ))}
-                <PrimaryButton
-                    title="Upload"
-                    color="darkGreen"
-                    type="submit"
-                />
-              </form>
-            </div>
-
-          </motion.div>
+      <div className="flex flex-row w-3/4 mx-auto items-center gap-4 px-8 py-8 mt-48">
+        <div className="relative flex-grow">
+          <div className="absolute inset-y-0 start-0 flex items-center px-4 py-4 pointer-events-none">
+            <Image src={profileIcon} className="w-8 h-8" alt="" />
+          </div>
+          <input
+            type="text"
+            id="input-group-1"
+            style={{ backgroundColor: "rgb(124, 69, 133)" }}
+            className="w-full ps-16 p-3.5 text-sm border border-brokenWhite rounded-lg focus:outline-none placeholder:text-brokenWhite placeholder:opacity-35"
+            placeholder="Enter your Query"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
         </div>
 
+        <button
+          onClick={handleSubmit}
+          style={{ backgroundColor: "rgb(61, 54, 92)" }}
+          className="px-8 py-3 border-[1px] border-brokenWhite rounded-lg hover:text-brokenWhite hover:bg-violet-800 duration-300 font-medium"
+        >
+          Search
+        </button>
       </div>
+
+      <div className="h-80 flex flex-col items-center">
+        <motion.div
+          className="flex-grow w-3/4  overflow-y-scroll bg-brokenWhite self-center rounded-t-[2rem] rounded-b-[2rem] relative std flex-col items-center justify-center"
+          {...slideAnimation("up", 0, 2)}
+        >
+          <Image src={posepic} className="absolute left-0 bottom-0 w-1/3" alt="Plants" />
+
+          <Link
+            href="/landing"
+            className="w-10 h-10 bg-violet-900 absolute top-8 left-8 rounded-lg std hover:bg-violet-800 duration-300"
+          >
+            <Image src={backIcon} className="hover:animate-pulse" alt="Back" />
+          </Link>
+
+          {user.username ? (
+            <p className="text-violet-900 font-semibold text-5xl mb-[2%]">
+              Welcome, {user.username}!
+            </p>
+          ) : (
+            <p className="mt-8 text-violet-900 font-semibold text-5xl mb-[2%]">
+              Hi
+            </p>
+          )}
+
+          <p className="text-violet-800 font-light text-2xl">
+            Your Documents will be displayed here!
+          </p>
+
+        </motion.div>
+      </div>
+    </div>
   )
 }
