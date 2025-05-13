@@ -15,28 +15,9 @@ model userInfo {
   mode     String @default("normal") // Set default value to "normal"
 }
 
-model imageInfo {
-  id              Int      @id @default(autoincrement())
-  username        String
-  upload_date     DateTime
-  image_name      String
-  image_size      String
-  image_type      String
-  key_value_pairs Json
-  image_data      String?
-
-  FinalData FinalData[] @relation("ImageToFinalData")
-}
-
-model FinalData {
-  id              Int       @id @default(autoincrement())
-  imageInfoId     Int
-  imageInfo       imageInfo @relation("ImageToFinalData", fields: [imageInfoId], references: [id])
-  username        String
-  upload_date     DateTime
-  image_name      String
-  image_size      String
-  image_type      String
-  key_value_pairs Json
-  image_data      String?
+model docInfo {
+  doc_id   Int    @id @default(autoincrement())
+  title    String
+  content  String
+  doc_link String
 }
