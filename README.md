@@ -1,1 +1,1 @@
-# Saarthi-IR-Project
+# IR-Project
