@@ -1,6 +1,8 @@
 import math
 import os
-
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
 import numpy as np
 import pandas as pd
 from natsort import natsorted
@@ -28,12 +30,19 @@ file_no = 1
 # Initialize the file mapping (file_no -> file name).
 file_map = {}
 
+user_query="karma"
+
 # Part one
 # Remove stop words in files
 def preprocessing(file_path):
-    with open(file_path, 'r') as f:
+    with open(file_path, 'r',encoding='latin-1') as f:
         word = f.read()
         all_stopwords = stopwords.words('english')
+        # Add custom stopwords
+        custom_stopwords = ['<p>', '</p>', '<i>', '</i>']
+
+# Extend the list
+        all_stopwords.extend(custom_stopwords)
         all_stopwords.remove('to')
         all_stopwords.remove('in')
         all_stopwords.remove('where')
@@ -122,7 +131,7 @@ term_frequency = pd.DataFrame(get_term_frequency(tokens_list[0]).values(),
 for i in range(1, len(tokens_list)):
     term_frequency[i] = get_term_frequency(tokens_list[i]).values()
 
-term_frequency.columns = ['d' + str(i) for i in range(1, 11)]
+term_frequency.columns = ['d' + str(i) for i in range(1, 101)]
 
 # tf ---> results
 print("\n'TF results':\n")
@@ -277,43 +286,45 @@ def after_insert():
 
     product2 = product.multiply(query['normalized'], axis=0)
 
-    query = query[(query.T != 0).any()]  # To Drop rows with all zeros
+    query = query[(query.T != 0).any()]  # Drop rows with all zeros
     print("\n'Vector space models calculations table for the query':\n")
     print(query)
 
-    # calculate query length
+    # Calculate query length
     query_length = math.sqrt(sum([i ** 2 for i in query['idf'].loc[final_query.split()]]))
     print("\n'Query length':")
     print(query_length)
 
-    # for calculate cosine similarity scores
+    # Calculate cosine similarity scores
     cosine_scores = {}
     for doc in product2.columns:
         if 0 in product2[doc].loc[final_query.split()].values:
             pass
         else:
             cosine_scores[doc] = product2[doc].sum()
-    print("\n'cosine similarity scores for matched docs':")
+    print("\n'Cosine similarity scores for matched docs':")
     print(cosine_scores)
 
-    product_result = product2[list(cosine_scores.keys())].loc[final_query.split()]
+    # Sort and return top 10 documents
+    returned_docs = sorted(cosine_scores.items(), key=lambda x: x[1], reverse=True)[:10]
+
+    # Compute product result and sum for only top 10
+    top_docs = [doc[0] for doc in returned_docs]
+    product_result = product2[top_docs].loc[final_query.split()]
     product_result_sum = product_result.sum()
-    print("\n'product (query * matched docs):'")
+    print("\n'Product (query * matched docs):'")
     print(product_result)
 
     print("\n'Sum Product'")
     print(product_result_sum)
 
-    # for returned docs
-    returned_docs = sorted(cosine_scores.items(), key=lambda x: x[1], reverse=True)
-    print("\n'Returned Docs':")
+    print("\n'Top 10 Returned Docs':")
     for doc in returned_docs:
-        print(doc[0], end=' ')
+        print(doc[0], "Score:", doc[1])
     print("\n")
-
 
 print("\n'After insert query results':\n")
 try:
     after_insert()
-except:
-    print("Query Not Found")
+except Exception as e:
+    print("Query Not Found:", e)
