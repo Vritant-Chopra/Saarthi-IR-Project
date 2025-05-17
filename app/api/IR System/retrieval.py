@@ -12,7 +12,6 @@ from nltk.stem import WordNetLemmatizer
 
 nltk.download('stopwords')
 nltk.download('punkt')
-nltk.download('wordnet')
 
 def run_retrieval(user_query):
     print(f"run_retrieval CALLED with query: {user_query}")
@@ -41,19 +40,12 @@ def run_retrieval(user_query):
 
             text_tokens = word_tokenize(word)
 
-            stemmer = PorterStemmer()
-            lemmatizer = WordNetLemmatizer()
-
             tokens_without_sw = [
                 token for token in text_tokens
                 if token.isalpha() and token.lower() not in all_stopwords and len(token) > 2
             ]
 
-            processed_tokens = [
-                lemmatizer.lemmatize(stemmer.stem(token)) for token in tokens_without_sw
-            ]
-
-            return processed_tokens
+            return tokens_without_sw
 
     for file in file_list:
         if file.endswith(".txt"):

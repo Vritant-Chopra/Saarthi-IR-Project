@@ -1,0 +1,99 @@
+/*!************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./node_modules/react-creative-cursor/dist/styles.css ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************/
+.c-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  pointer-events: none;
+  will-change: transform, height, width, color;
+  border-radius: 100%;
+  contain: layout style size;
+  transform: translate(-50%, -50%);
+}
+.c-cursor__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+  opacity: 0;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  mix-blend-mode: inherit;
+  will-change: transform, height, width, opacity, color;
+  border-radius: 100%;
+  contain: layout style size;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+.c-cursor__img {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  filter: invert(1);
+}
+
+[data-cursor-size],
+[data-cursor-background-image],
+[data-cursor-color],
+[data-cursor-exclusion],
+[data-cursor-text],
+[data-cursor-stick],
+[data-cursor-magnetic] {
+  position: relative;
+}
+[data-cursor-size]::before,
+[data-cursor-background-image]::before,
+[data-cursor-color]::before,
+[data-cursor-exclusion]::before,
+[data-cursor-text]::before,
+[data-cursor-stick]::before,
+[data-cursor-magnetic]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+}
+[data-cursor-size] a,
+[data-cursor-size] button,
+[data-cursor-size] input,
+[data-cursor-size] textarea,
+[data-cursor-background-image] a,
+[data-cursor-background-image] button,
+[data-cursor-background-image] input,
+[data-cursor-background-image] textarea,
+[data-cursor-color] a,
+[data-cursor-color] button,
+[data-cursor-color] input,
+[data-cursor-color] textarea,
+[data-cursor-exclusion] a,
+[data-cursor-exclusion] button,
+[data-cursor-exclusion] input,
+[data-cursor-exclusion] textarea,
+[data-cursor-text] a,
+[data-cursor-text] button,
+[data-cursor-text] input,
+[data-cursor-text] textarea,
+[data-cursor-stick] a,
+[data-cursor-stick] button,
+[data-cursor-stick] input,
+[data-cursor-stick] textarea,
+[data-cursor-magnetic] a,
+[data-cursor-magnetic] button,
+[data-cursor-magnetic] input,
+[data-cursor-magnetic] textarea {
+  pointer-events: painted;
+  transform: translate(0, 0) !important;
+}
