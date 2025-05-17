@@ -22,8 +22,8 @@ To set up and run this web app locally, follow these steps:
 Clone this repository and navigate into the project directory:
 
 ```bash
-git clone https://github.com/softwareinnovationslabBITS/PlantML_WebApp.git
-cd PlantML_WebApp
+git clone https://github.com/Vritant-Chopra/Saarthi-IR-Project.git
+cd Saarthi-IR-Project
 ```
 ### Install Dependencies
 Install the required dependencies using npm:
@@ -104,7 +104,6 @@ This project implements:
 ## 🔍 Features
 
 - ✅ Tokenization and stopword removal using NLTK
-- ✅ Stemming and Lemmatization done
 - ✅ Positional index construction
 - ✅ Term Frequency–Inverse Document Frequency (TF-IDF) scoring
 - ✅ Cosine similarity computation
